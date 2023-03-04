@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="container"></div>
+
+		<script src="../node_modules/tweakpane/dist/tweakpane.js"></script>
+		<script src="../dist/tweakpane-plugin-media.js"></script>
+		<script>
+			const pane = new Tweakpane.Pane();
+
+			// Register plugin
+			pane.registerPlugin(TweakpaneMediaPlugin);
+
+			const PARAMS = {
+				image: './image.png',
+				video: './video.mp4',
+			};
+
+			pane
+				.addInput(PARAMS, 'image', {
+					label: 'Image',
+					view: 'image',
+					imgProps: {className: '123213213213', style: {width: '100px'}},
+					containerProps: {className: '1231321'},
+					inputProps: {className: '3545555545'},
+					labelProps: {className: 'wrevewvrewvr'},
+					checkBoxProps: {className: 'acsacascsc'},
+					// labelCheckBoxProps: {children: 'ascascacsacsacsacs'},
+					buttonClearProps: {
+						children: 'ascacacs',
+					},
+				})
+				.on('change', (ev) => {
+					console.log(ev.value);
+				});
+
+			pane
+				.addInput(PARAMS, 'video', {
+					label: 'Video',
+					view: 'video',
+					videoProps: {
+						loop: true,
+						autoplay: true,
+						muted: true,
+						playsinline: true,
+					},
+				})
+				.on('change', (ev) => {
+					console.log(ev.value);
+				});
+
+			window.pane = pane;
+		</script>
+	</body>
+</html>
