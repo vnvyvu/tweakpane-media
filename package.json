@@ -1,10 +1,10 @@
 {
-	"name": "tweakpane-plugin-media",
-	"version": "0.0.0",
-	"description": "Plugin Media for Tweakpane",
+	"name": "tweakpane-media",
+	"version": "0.0.1",
+	"description": "Add image/video to Tweakpane",
 	"main": "dist/tweakpane-plugin-media.js",
 	"types": "dist/types/index.d.ts",
-	"author": "cocopon",
+	"author": "vyvu",
 	"license": "MIT",
 	"files": [
 		"dist"
