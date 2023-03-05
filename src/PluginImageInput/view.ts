@@ -52,7 +52,7 @@ export class PluginView implements View {
 		this.containerCheckBox_.appendChild(this.checkbox);
 
 		// Label checkbox
-		this.labelCheckBox_ = this.createLabelCheckBox_(doc);
+		this.labelCheckBox_ = this.createLabelCheckBox_(doc, this.checkbox);
 		this.containerCheckBox_.appendChild(this.labelCheckBox_);
 
 		// Label image
@@ -146,13 +146,16 @@ export class PluginView implements View {
 		return container;
 	}
 
-	private createLabelCheckBox_(doc: Document): HTMLLabelElement {
+	private createLabelCheckBox_(
+		doc: Document,
+		checkbox: HTMLInputElement,
+	): HTMLLabelElement {
 		const label = mergeElement(
 			doc.createElement('label'),
 			this.params_.labelCheckBoxProps,
 		);
 
-		label.htmlFor = 'checkbox';
+		label.htmlFor = checkbox.id || 'checkbox-image';
 		label.className = `${className('label-checkbox')} ${
 			this.params_.labelCheckBoxProps?.className || ''
 		}`;
@@ -179,7 +182,7 @@ export class PluginView implements View {
 			this.params_.checkBoxProps,
 		);
 
-		checkbox.id = 'checkbox';
+		checkbox.id = checkbox.id || 'checkbox-image';
 		checkbox.type = 'checkbox';
 		checkbox.defaultChecked = true;
 		checkbox.className = `${className('input-checkbox')} ${

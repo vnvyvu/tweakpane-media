@@ -96,7 +96,7 @@ export class PluginController implements Controller<PluginView> {
 		if (options?.clear) this.value.rawValue = '';
 	}
 
-	private checkboxHandler_(): void {
+	private checkboxHandler_(e: Event): void {
 		if (this.view.checkbox.checked) {
 			this.inputHandler_(undefined, {saveCurrentValue: true});
 			this.view.inputImage.disabled = false;
@@ -106,6 +106,8 @@ export class PluginController implements Controller<PluginView> {
 			this.view.inputImage.disabled = true;
 			this.view.element.style.opacity = '0.5';
 		}
+
+		this.view.checkbox.onchange?.(e);
 	}
 
 	private buttonClearHandler_(e: MouseEvent) {

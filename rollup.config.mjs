@@ -51,7 +51,13 @@ function getPlugins(css, shouldMinify) {
 		Cleanup({
 			comments: 'none',
 		}),
-		obfuscator({ignoreImports: true, target: 'browser-no-eval'}),
+		obfuscator({
+			ignoreImports: true,
+			target: 'browser-no-eval',
+			selfDefending: true,
+			identifierNamesGenerator: 'mangled-shuffled',
+			deadCodeInjection: false,
+		}),
 	];
 }
 
@@ -80,7 +86,6 @@ function getUmdName(packageName) {
 export default async () => {
 	// eslint-disable-next-line no-undef
 	const production = process.env.BUILD === 'production';
-	const postfix = '.min';
 
 	const distName = getDistName(Package.name);
 	const css = await compileCss();
@@ -88,7 +93,7 @@ export default async () => {
 		input: 'src/index.ts',
 		external: ['tweakpane'],
 		output: {
-			file: `dist/${distName}${postfix}.js`,
+			file: `dist/${distName}.min.js`,
 			format: 'umd',
 			globals: {
 				tweakpane: 'Tweakpane',

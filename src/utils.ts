@@ -162,9 +162,10 @@ export function mergeElement<T extends HTMLElement>(
 					break;
 
 				default:
-					if (typeof (elementProps as any)[k] !== 'function') {
-						(resultElement as any)[k] = v;
-					}
+					if (typeof (elementProps as any)[k] === 'function')
+						(resultElement as any)[k.toLocaleLowerCase()] = v;
+					else (resultElement as any)[k] = v;
+
 					break;
 			}
 		}

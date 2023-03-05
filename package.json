@@ -1,6 +1,6 @@
 {
 	"name": "tweakpane-media",
-	"version": "0.0.6",
+	"version": "0.0.7",
 	"description": "Add image/video to Tweakpane",
 	"main": "dist/tweakpane-media.min.js",
 	"types": "dist/types/index.d.ts",
@@ -31,15 +31,12 @@
 		"assets:zip": "zip -x \"*types*\" -j -r $(cat package.json | npx json name)-$(cat package.json | npx json version).zip dist",
 		"clean": "rimraf --glob dist *.tgz *.zip",
 		"build": "run-p build:*",
-		"build-dev": "rollup --config rollup.config.mjs",
 		"build:dts": "tsc --project src/tsconfig-dts.json",
 		"build:prod": "rollup --config rollup.config.mjs --environment BUILD:production",
 		"format": "run-p format:*",
 		"format:scss": "prettier --parser scss --write \"src/sass/**/*.scss\"",
 		"format:ts": "eslint --ext .ts --fix \"src/**/*.ts\"",
-		"watch": "run-p watch:*",
-		"watch:sass": "onchange --initial --kill \"src/sass/**/*.scss\" -- npm run build:prod",
-		"watch:ts": "onchange --initial --kill \"src/**/*.ts\" -- rollup --config rollup.config.mjs"
+		"watch": "onchange --initial --kill \"src/sass/**/*.scss\" --kill \"src/**/*.ts\" -- npm run build:prod"
 	},
 	"devDependencies": {
 		"@rollup/plugin-alias": "^4.0.3",
