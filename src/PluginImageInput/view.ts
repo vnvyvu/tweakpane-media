@@ -47,13 +47,13 @@ export class PluginView implements View {
 		this.containerCheckBox_ = this.createContainerCheckBox_(doc);
 		this.element.appendChild(this.containerCheckBox_);
 
+		// Label checkbox
+		this.labelCheckBox_ = this.createLabelCheckBox_(doc);
+		this.containerCheckBox_.appendChild(this.labelCheckBox_);
+
 		// Checkbox
 		this.checkbox = this.createInputCheckbox_(doc);
-		this.containerCheckBox_.appendChild(this.checkbox);
-
-		// Label checkbox
-		this.labelCheckBox_ = this.createLabelCheckBox_(doc, this.checkbox);
-		this.containerCheckBox_.appendChild(this.labelCheckBox_);
+		this.labelCheckBox_.prepend(this.checkbox);
 
 		// Label image
 		this.labelImage_ = this.createLabelImage_(doc);
@@ -146,10 +146,7 @@ export class PluginView implements View {
 		return container;
 	}
 
-	private createLabelCheckBox_(
-		doc: Document,
-		checkbox: HTMLInputElement,
-	): HTMLLabelElement {
+	private createLabelCheckBox_(doc: Document): HTMLLabelElement {
 		const label = mergeElement(
 			doc.createElement('label'),
 			this.params_.labelCheckBoxProps,
@@ -170,7 +167,6 @@ export class PluginView implements View {
 				: {},
 		);
 
-		label.htmlFor = checkbox.id || 'checkbox-image';
 		label.className = `${className('label-checkbox')} ${
 			this.params_.config?.templateCheckBox === 'tweakpane'
 				? className('label-checkbox-tweakpane')
@@ -193,7 +189,6 @@ export class PluginView implements View {
 				: {},
 		);
 
-		checkbox.id = checkbox.id || 'checkbox-image';
 		checkbox.type = 'checkbox';
 		checkbox.defaultChecked = true;
 		checkbox.className = `${className('input-checkbox')} ${

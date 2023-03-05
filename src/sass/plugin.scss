@@ -53,14 +53,10 @@
 		}
 	}
 	&_input-checkbox {
-		&-tweakpane:checked
-			+ label[class*='label-checkbox-tweakpane']
-			> svg:first-child {
+		&-tweakpane:checked + svg {
 			opacity: 1;
 		}
-		&-tweakpane:not(:checked)
-			+ label[class*='label-checkbox-tweakpane']
-			> svg:first-child {
+		&-tweakpane:not(:checked) + svg {
 			opacity: 0;
 		}
 	}

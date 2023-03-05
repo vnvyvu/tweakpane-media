@@ -131,71 +131,7 @@ pane
 </script>
 ```
 
-- Custom checkbox similar Tweakpane core checkbox without config template
-
-```html
-<style>
-	#cb-video:checked + label > svg {
-		opacity: 1;
-	}
-	#cb-video:not(checked) + label > svg {
-		opacity: 0;
-	}
-</style>
-
-<script>
-	//...
-	pane
-		.addInput(PARAMS, 'video', {
-			label: 'Video',
-			view: 'video',
-
-			containerProps: {},
-
-			videoProps: {
-				loop: true,
-				autoplay: true,
-				muted: true,
-				playsinline: true,
-				width: 100,
-				height: 90,
-				style: {
-					objectFit: 'cover',
-				},
-			},
-			inputVideoProps: {},
-			labelVideoProps: {},
-
-			containerCheckBoxProps: {},
-			checkBoxProps: {
-				id: 'cb-video',
-				style: {
-					display: 'none',
-				},
-			},
-			labelCheckBoxProps: {
-				innerHTML:
-					'<svg id="label-icon" style="bottom: 0;display: block;height: 16px;left: 0;margin: auto;position: absolute;right: 0;top: 0;width: 16px;"><path style="fill: none;stroke: var(--in-fg);stroke-width: 2;" d="M2 8l4 4l8 -8"></path></svg>',
-				style: {
-					backgroundColor: 'var(--in-bg)',
-					borderRadius: 'var(--elm-br)',
-					cursor: 'pointer',
-					display: 'block',
-					height: 'var(--bld-us)',
-					position: 'relative',
-					width: 'var(--bld-us)',
-				},
-			},
-
-			buttonClearProps: {
-				children: 'Clear',
-			},
-		})
-		.on('change', (ev) => {
-			console.log(ev.value);
-		});
-</script>
-```
+...
 
 ## Limitation
 
