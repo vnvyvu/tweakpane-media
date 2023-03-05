@@ -49,8 +49,20 @@
 		display: flex;
 	}
 	&_label-checkbox {
+		&-tweakpane {
+		}
 	}
 	&_input-checkbox {
+		&-tweakpane:checked
+			+ label[class*='label-checkbox-tweakpane']
+			> svg:first-child {
+			opacity: 1;
+		}
+		&-tweakpane:not(:checked)
+			+ label[class*='label-checkbox-tweakpane']
+			> svg:first-child {
+			opacity: 0;
+		}
 	}
 
 	&_button-clear {

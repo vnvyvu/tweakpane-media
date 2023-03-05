@@ -9,17 +9,21 @@ import {
 import {PluginController} from './controller';
 
 export interface PluginImageInputParams extends BaseInputParams {
-	containerProps: Partial<HTMLDivElement>;
+	containerProps?: Partial<HTMLDivElement>;
 
-	imgProps: Partial<HTMLImageElement>;
-	inputImageProps: Partial<HTMLInputElement>;
-	labelImageProps: Partial<HTMLLabelElement>;
+	imgProps?: Partial<HTMLImageElement>;
+	inputImageProps?: Partial<HTMLInputElement>;
+	labelImageProps?: Partial<HTMLLabelElement>;
 
-	containerCheckBoxProps: Partial<HTMLDivElement>;
-	checkBoxProps: Partial<HTMLInputElement>;
-	labelCheckBoxProps: Partial<HTMLLabelElement>;
+	containerCheckBoxProps?: Partial<HTMLDivElement>;
+	checkBoxProps?: Partial<HTMLInputElement>;
+	labelCheckBoxProps?: Partial<HTMLLabelElement>;
 
-	buttonClearProps: Partial<HTMLSpanElement>;
+	buttonClearProps?: Partial<HTMLSpanElement>;
+
+	config?: {
+		templateCheckBox?: 'tweakpane';
+	};
 
 	label: string;
 	view: 'image';
@@ -65,6 +69,8 @@ export const PluginImageInput: InputBindingPlugin<
 			containerCheckBoxProps: ParamsParsers.optional.object({}),
 
 			buttonClearProps: ParamsParsers.optional.object({}),
+
+			config: ParamsParsers.optional.object({}),
 		});
 
 		if (!result) {

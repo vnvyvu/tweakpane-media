@@ -99,7 +99,39 @@ pane
 
 ```
 
-- Custom checkbox (similar Tweakpane core checkbox)
+- Custom checkbox similar Tweakpane core checkbox
+
+```html
+<script>
+	pane
+		.addInput(PARAMS, 'video', {
+			label: 'Video',
+			view: 'video',
+			containerProps: {},
+			videoProps: {
+				loop: true,
+				autoplay: true,
+				muted: true,
+				playsinline: true,
+				width: 100,
+				height: 90,
+				style: {objectFit: 'cover'},
+			},
+			inputVideoProps: {},
+			labelVideoProps: {},
+			containerCheckBoxProps: {},
+			checkBoxProps: {},
+			labelCheckBoxProps: {},
+			buttonClearProps: {children: 'Clear'},
+			config: {templateCheckBox: 'tweakpane'},
+		})
+		.on('change', (ev) => {
+			console.log(ev.value);
+		});
+</script>
+```
+
+- Custom checkbox similar Tweakpane core checkbox without config template
 
 ```html
 <style>

@@ -9,17 +9,21 @@ import {
 import {PluginController} from './controller';
 
 export interface PluginVideoInputParams extends BaseInputParams {
-	containerProps: Partial<HTMLDivElement>;
+	containerProps?: Partial<HTMLDivElement>;
 
-	videoProps: Partial<HTMLVideoElement>;
-	inputVideoProps: Partial<HTMLInputElement>;
-	labelVideoProps: Partial<HTMLLabelElement>;
+	videoProps?: Partial<HTMLVideoElement>;
+	inputVideoProps?: Partial<HTMLInputElement>;
+	labelVideoProps?: Partial<HTMLLabelElement>;
 
-	containerCheckBoxProps: Partial<HTMLDivElement>;
-	checkBoxProps: Partial<HTMLInputElement>;
-	labelCheckBoxProps: Partial<HTMLLabelElement>;
+	containerCheckBoxProps?: Partial<HTMLDivElement>;
+	checkBoxProps?: Partial<HTMLInputElement>;
+	labelCheckBoxProps?: Partial<HTMLLabelElement>;
 
-	buttonClearProps: Partial<HTMLSpanElement>;
+	buttonClearProps?: Partial<HTMLSpanElement>;
+
+	config?: {
+		templateCheckBox?: 'tweakpane';
+	};
 
 	label: string;
 	view: 'video';
@@ -65,6 +69,8 @@ export const PluginVideoInput: InputBindingPlugin<
 			containerCheckBoxProps: ParamsParsers.optional.object({}),
 
 			buttonClearProps: ParamsParsers.optional.object({}),
+
+			config: ParamsParsers.optional.object({}),
 		});
 
 		if (!result) {

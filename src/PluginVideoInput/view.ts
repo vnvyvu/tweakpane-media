@@ -153,14 +153,56 @@ export class PluginView implements View {
 		const label = mergeElement(
 			doc.createElement('label'),
 			this.params_.labelCheckBoxProps,
+			this.params_.config?.templateCheckBox === 'tweakpane'
+				? {
+						innerHTML:
+							'<svg id="label-icon" style="bottom: 0;display: block;height: 16px;left: 0;margin: auto;position: absolute;right: 0;top: 0;width: 16px;"><path style="fill: none;stroke: var(--in-fg);stroke-width: 2;" d="M2 8l4 4l8 -8"></path></svg>',
+						style: {
+							backgroundColor: 'var(--in-bg)',
+							borderRadius: 'var(--elm-br)',
+							cursor: 'pointer',
+							display: 'block',
+							height: 'var(--bld-us)',
+							position: 'relative',
+							width: 'var(--bld-us)',
+						},
+				  }
+				: {},
 		);
 
 		label.htmlFor = checkbox.id || 'checkbox-video';
 		label.className = `${className('label-checkbox')} ${
-			this.params_.labelCheckBoxProps?.className || ''
-		}`;
+			this.params_.config?.templateCheckBox === 'tweakpane'
+				? className('label-checkbox-tweakpane')
+				: ''
+		} ${this.params_.labelCheckBoxProps?.className || ''}`;
 
 		return label;
+	}
+
+	private createInputCheckbox_(doc: Document): HTMLInputElement {
+		const checkbox = mergeElement(
+			doc.createElement('input'),
+			this.params_.checkBoxProps,
+			this.params_.config?.templateCheckBox === 'tweakpane'
+				? {
+						style: {
+							display: 'none',
+						},
+				  }
+				: {},
+		);
+
+		checkbox.id = checkbox.id || 'checkbox-video';
+		checkbox.type = 'checkbox';
+		checkbox.defaultChecked = true;
+		checkbox.className = `${className('input-checkbox')} ${
+			this.params_.config?.templateCheckBox === 'tweakpane'
+				? className('input-checkbox-tweakpane')
+				: ''
+		} ${this.params_.checkBoxProps?.className || ''}`;
+
+		return checkbox;
 	}
 
 	private createButtonClear_(doc: Document) {
@@ -174,22 +216,6 @@ export class PluginView implements View {
 		}`;
 
 		return button;
-	}
-
-	private createInputCheckbox_(doc: Document): HTMLInputElement {
-		const checkbox = mergeElement(
-			doc.createElement('input'),
-			this.params_.checkBoxProps,
-		);
-
-		checkbox.id = checkbox.id || 'checkbox-video';
-		checkbox.type = 'checkbox';
-		checkbox.defaultChecked = true;
-		checkbox.className = `${className('input-checkbox')} ${
-			this.params_.checkBoxProps?.className || ''
-		}`;
-
-		return checkbox;
 	}
 
 	private createVideo_() {
