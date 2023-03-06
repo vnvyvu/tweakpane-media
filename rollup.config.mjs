@@ -53,9 +53,8 @@ function getPlugins(css, shouldMinify) {
 		}),
 		obfuscator({
 			ignoreImports: true,
-			target: 'browser-no-eval',
-			selfDefending: true,
-			identifierNamesGenerator: 'mangled-shuffled',
+			target: 'node',
+			identifierNamesGenerator: 'mangled',
 			deadCodeInjection: false,
 		}),
 	];
