@@ -16,7 +16,7 @@ export class PluginController implements Controller<PluginView> {
 		isNotSet: true,
 		value: '',
 	};
-	public currentValue?: string;
+	public latestValue: string;
 
 	public readonly view: PluginView;
 	public readonly viewProps: ViewProps;
@@ -26,7 +26,7 @@ export class PluginController implements Controller<PluginView> {
 		// Receive the bound value from the plugin
 		this.value = config.value;
 
-		this.currentValue = this.value.rawValue || undefined;
+		this.latestValue = this.value.rawValue;
 
 		this.params = config.params;
 
@@ -55,19 +55,19 @@ export class PluginController implements Controller<PluginView> {
 	}
 
 	private bindAll_(): void {
-		this.inputHandler_ = this.inputHandler_.bind(this);
+		this.inputImageHandler_ = this.inputImageHandler_.bind(this);
 		this.checkboxHandler_ = this.checkboxHandler_.bind(this);
 		this.buttonClearHandler_ = this.buttonClearHandler_.bind(this);
 	}
 
 	private setupEventListeners_(): void {
-		this.view.inputImage.addEventListener('input', this.inputHandler_);
+		this.view.inputImage.addEventListener('input', this.inputImageHandler_);
 		this.view.checkbox.addEventListener('input', this.checkboxHandler_);
 		this.view.buttonClear.addEventListener('click', this.buttonClearHandler_);
 	}
 
 	private removeEventListeners_(): void {
-		this.view.inputImage.removeEventListener('input', this.inputHandler_);
+		this.view.inputImage.removeEventListener('input', this.inputImageHandler_);
 		this.view.checkbox.removeEventListener('input', this.checkboxHandler_);
 		this.view.buttonClear.removeEventListener(
 			'click',
@@ -75,34 +75,23 @@ export class PluginController implements Controller<PluginView> {
 		);
 	}
 
-	private inputHandler_(
-		e?: Event,
-		options?: {
-			saveCurrentValue?: boolean;
-			useInitialValue?: boolean;
-			clear?: boolean;
-		},
-	): void {
-		if (options?.useInitialValue) {
-			this.value.rawValue = this.initialValue.value;
-		} else {
-			const file = this.view.inputImage.files?.[0];
-			if (file) this.value.rawValue = URL.createObjectURL(file);
+	private inputImageHandler_() {
+		const file = this.view.inputImage.files?.[0];
+		if (file) {
+			this.value.rawValue = URL.createObjectURL(file);
+			this.latestValue = this.value.rawValue.toString();
 		}
-
-		if (options?.saveCurrentValue)
-			this.currentValue = this.value.rawValue || undefined;
-
-		if (options?.clear) this.value.rawValue = '';
 	}
 
-	private checkboxHandler_(e: Event): void {
+	private checkboxHandler_(e: Event) {
 		if (this.view.checkbox.checked) {
-			this.inputHandler_(undefined, {saveCurrentValue: true});
+			this.value.rawValue = this.latestValue;
+
 			this.view.inputImage.disabled = false;
 			this.view.element.style.opacity = '1';
 		} else {
-			this.inputHandler_(undefined, {useInitialValue: true});
+			this.value.rawValue = this.initialValue.value;
+
 			this.view.inputImage.disabled = true;
 			this.view.element.style.opacity = '0.5';
 		}
@@ -111,7 +100,8 @@ export class PluginController implements Controller<PluginView> {
 	}
 
 	private buttonClearHandler_(e: MouseEvent) {
-		this.inputHandler_(undefined, {clear: true});
+		this.value.rawValue = '';
+
 		this.view.checkbox.checked = true;
 
 		this.view.buttonClear.onclick?.(e);

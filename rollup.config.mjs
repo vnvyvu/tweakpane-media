@@ -1,12 +1,12 @@
 import Alias from '@rollup/plugin-alias';
 import {nodeResolve} from '@rollup/plugin-node-resolve';
 import Replace from '@rollup/plugin-replace';
+import Terser from '@rollup/plugin-terser';
 import Typescript from '@rollup/plugin-typescript';
 import Autoprefixer from 'autoprefixer';
 import Postcss from 'postcss';
 import {obfuscator} from 'rollup-obfuscator';
 import Cleanup from 'rollup-plugin-cleanup';
-import {terser as Terser} from 'rollup-plugin-terser';
 import Sass from 'sass';
 
 import Package from './package.json' assert {type: 'json'};

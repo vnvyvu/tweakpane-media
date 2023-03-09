@@ -131,6 +131,28 @@ pane
 </script>
 ```
 
+- Work with React element, Tailwind
+
+```typescript
+import {TiDeleteOutline} from 'react-icons/ti';
+import {renderToStaticMarkup} from 'react-dom/server';
+
+const configUI = {
+	buttonClearProps: {
+		innerHTML: renderToStaticMarkup(
+			TiDeleteOutline({size: 19, className: 'hover:text-slate-400 text-black'}),
+		),
+	},
+	containerProps: {
+		className: 'gap-1 justify-between',
+	},
+	labelImageProps: {
+		className: 'border border-black hover:border-slate-300 rounded-sm',
+	},
+	config: {templateCheckBox: 'tweakpane'},
+};
+```
+
 ...
 
 ## Limitation
