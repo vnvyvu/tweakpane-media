@@ -1,22 +1,25 @@
 import {Controller, Value, ViewProps} from '@tweakpane/core';
 
-import {PluginVideoInputParams} from '.';
+import {PluginVideoInputData, PluginVideoInputParams} from '.';
 import {PluginView} from './view';
 
 interface Config {
-	value: Value<string>;
+	value: Value<PluginVideoInputData>;
 	viewProps: ViewProps;
 	params: PluginVideoInputParams;
 }
 
 // Custom controller class should implement `Controller` interface
 export class PluginController implements Controller<PluginView> {
-	public readonly value: Value<string>;
-	public readonly initialValue: {isNotSet: boolean; value: string} = {
+	public readonly value: Value<PluginVideoInputData>;
+	public readonly initialValue: {
+		isNotSet: boolean;
+		value: PluginVideoInputData;
+	} = {
 		isNotSet: true,
-		value: '',
+		value: {checked: true, src: ''},
 	};
-	public latestValue: string;
+	public latestValue: PluginVideoInputData;
 
 	public readonly view: PluginView;
 	public readonly viewProps: ViewProps;
@@ -50,7 +53,10 @@ export class PluginController implements Controller<PluginView> {
 		this.setupEventListeners_();
 
 		if (this.initialValue.isNotSet) {
-			this.initialValue = {isNotSet: false, value: this.view.video.src};
+			this.initialValue = {
+				isNotSet: false,
+				value: {src: this.view.video.src, checked: true},
+			};
 		}
 	}
 
@@ -78,19 +84,28 @@ export class PluginController implements Controller<PluginView> {
 	private inputVideoHandler_() {
 		const file = this.view.inputVideo.files?.[0];
 		if (file) {
-			this.value.rawValue = URL.createObjectURL(file);
-			this.latestValue = this.value.rawValue.toString();
+			this.value.rawValue = {
+				...this.value.rawValue,
+				src: URL.createObjectURL(file),
+			};
+			this.latestValue = this.value.rawValue;
 		}
 	}
 
 	private checkboxHandler_(e: Event) {
 		if (this.view.checkbox.checked) {
-			this.value.rawValue = this.latestValue;
+			this.value.rawValue = {
+				...this.latestValue,
+				checked: this.view.checkbox.checked,
+			};
 
 			this.view.inputVideo.disabled = false;
 			this.view.element.style.opacity = '1';
 		} else {
-			this.value.rawValue = this.initialValue.value;
+			this.value.rawValue = {
+				...this.initialValue.value,
+				checked: this.view.checkbox.checked,
+			};
 
 			this.view.inputVideo.disabled = true;
 			this.view.element.style.opacity = '0.5';
@@ -100,7 +115,7 @@ export class PluginController implements Controller<PluginView> {
 	}
 
 	private buttonClearHandler_(e: MouseEvent) {
-		this.value.rawValue = '';
+		this.value.rawValue = {checked: true, src: ''};
 
 		this.view.checkbox.checked = true;
 

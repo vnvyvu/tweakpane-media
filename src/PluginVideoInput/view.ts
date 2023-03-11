@@ -1,10 +1,10 @@
 import {ClassName, Value, View, ViewProps} from '@tweakpane/core';
 
 import {mergeElement} from '../utils';
-import {PluginVideoInputParams} from './index';
+import {PluginVideoInputData, PluginVideoInputParams} from './index';
 
 interface Config {
-	value: Value<string>;
+	value: Value<PluginVideoInputData>;
 	viewProps: ViewProps;
 	params: PluginVideoInputParams;
 }
@@ -27,7 +27,7 @@ export class PluginView implements View {
 
 	public buttonClear: HTMLSpanElement;
 
-	private value_: Value<string>;
+	private value_: Value<PluginVideoInputData>;
 	private params_: PluginVideoInputParams;
 
 	constructor(doc: Document, config: Config) {
@@ -84,11 +84,22 @@ export class PluginView implements View {
 		config.viewProps.handleDispose(() => {
 			this.removeEventListeners_();
 		});
+
+		// Init styles
+		if (this.checkbox.checked) {
+			this.inputVideo.disabled = false;
+			this.element.style.opacity = '1';
+		} else {
+			this.inputVideo.disabled = true;
+			this.element.style.opacity = '0.5';
+		}
 	}
 
 	private refresh_(): void {
-		// Show Video in monitor
-		this.video.setAttribute('src', this.value_.rawValue);
+		this.video.setAttribute('src', this.value_.rawValue.src);
+
+		if (this.value_.rawValue.checked !== this.checkbox.checked)
+			this.checkbox.click();
 	}
 
 	private createRootElement_(doc: Document): HTMLDivElement {
@@ -190,7 +201,7 @@ export class PluginView implements View {
 		);
 
 		checkbox.type = 'checkbox';
-		checkbox.defaultChecked = true;
+		checkbox.defaultChecked = this.value_.rawValue.checked;
 		checkbox.className = `${className('input-checkbox')} ${
 			this.params_.config?.templateCheckBox === 'tweakpane'
 				? className('input-checkbox-tweakpane')

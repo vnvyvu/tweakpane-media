@@ -8,6 +8,11 @@ import {
 
 import {PluginController} from './controller';
 
+export class PluginVideoInputData {
+	src: string;
+	checked: boolean;
+}
+
 export interface PluginVideoInputParams extends BaseInputParams {
 	containerProps?: Partial<HTMLDivElement>;
 
@@ -37,8 +42,8 @@ export interface PluginVideoInputParams extends BaseInputParams {
 // - P is the type of the parsed parameters
 //
 export const PluginVideoInput: InputBindingPlugin<
-	string,
-	string,
+	PluginVideoInputData,
+	PluginVideoInputData | string,
 	PluginVideoInputParams
 > = {
 	id: 'video-input',
@@ -48,10 +53,7 @@ export const PluginVideoInput: InputBindingPlugin<
 	css: '__css__',
 
 	//Decides whether the plugin accepts provided value and parameters.
-	accept(exValue: unknown, params: Record<string, unknown>) {
-		// Return null if underfined
-		if (typeof exValue !== 'string') return null;
-
+	accept(exValue: unknown, params: Partial<PluginVideoInputParams>) {
 		// Parse parameters object
 		const result = parseParams<PluginVideoInputParams>(params, {
 			// `view` option may be useful to provide a custom control for primitive values
@@ -77,19 +79,59 @@ export const PluginVideoInput: InputBindingPlugin<
 			return null;
 		}
 
+		if (typeof exValue === 'string')
+			return {
+				initialValue: {
+					src: exValue,
+					checked:
+						typeof params.checkBoxProps?.defaultChecked === 'boolean'
+							? params.checkBoxProps?.defaultChecked
+							: true,
+				},
+				params: {...result, ...params},
+			};
+
+		if (typeof exValue !== 'object' || !exValue) return null;
+
 		// Return a typed value and params to accept the user input
 		return {
-			initialValue: exValue,
+			initialValue: exValue as PluginVideoInputData,
 			params: {...result, ...params},
 		};
 	},
 
 	binding: {
 		reader(_args) {
-			return (exValue: unknown): string => {
-				return typeof exValue === 'string' ? exValue : '';
+			return (exValue: unknown) => {
+				const checked =
+					typeof _args.params.checkBoxProps?.defaultChecked === 'boolean'
+						? _args.params.checkBoxProps?.defaultChecked
+						: true;
+
+				if (typeof exValue === 'string')
+					return {
+						src: exValue,
+						checked,
+					};
+
+				if (typeof exValue === 'object' && exValue) {
+					const exVal = exValue as PluginVideoInputData;
+
+					return {
+						src: exVal?.src || '',
+						checked:
+							typeof exVal.checked === 'boolean' ? exVal.checked : checked,
+					};
+				}
+
+				return {
+					src: '',
+					checked,
+				};
 			};
 		},
+
+		equals: (v1, v2) => v1.src === v2.src && v1.checked === v2.checked,
 
 		writer(_args) {
 			return (target: BindingTarget, inValue) => {
