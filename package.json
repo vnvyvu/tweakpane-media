@@ -1,6 +1,6 @@
 {
 	"name": "tweakpane-media",
-	"version": "0.0.11",
+	"version": "0.1.0",
 	"description": "Add image/video to Tweakpane",
 	"main": "dist/tweakpane-media.min.js",
 	"types": "dist/types/index.d.ts",
@@ -47,8 +47,8 @@
 		"@tweakpane/core": "^1.1.5",
 		"@typescript-eslint/eslint-plugin": "^5.54.1",
 		"@typescript-eslint/parser": "^5.54.1",
-		"autoprefixer": "^10.4.13",
-		"eslint": "^8.35.0",
+		"autoprefixer": "^10.4.14",
+		"eslint": "^8.36.0",
 		"eslint-config-prettier": "^8.7.0",
 		"eslint-plugin-prettier": "^4.2.1",
 		"eslint-plugin-simple-import-sort": "^10.0.0",
@@ -57,10 +57,10 @@
 		"postcss": "^8.4.21",
 		"prettier": "^2.8.4",
 		"rimraf": "^4.4.0",
-		"rollup": "^3.18.0",
+		"rollup": "^3.19.1",
 		"rollup-obfuscator": "^3.0.2",
 		"rollup-plugin-cleanup": "^3.2.1",
-		"sass": "^1.58.3",
+		"sass": "^1.59.2",
 		"tweakpane": "^3.1.6",
 		"typescript": "^4.9.5"
 	}

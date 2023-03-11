@@ -1,10 +1,10 @@
 import {ClassName, Value, View, ViewProps} from '@tweakpane/core';
 
 import {mergeElement} from '../utils';
-import {PluginImageInputParams} from './index';
+import {PluginImageInputData, PluginImageInputParams} from './index';
 
 interface Config {
-	value: Value<string>;
+	value: Value<PluginImageInputData>;
 	viewProps: ViewProps;
 	params: PluginImageInputParams;
 }
@@ -27,7 +27,7 @@ export class PluginView implements View {
 
 	public buttonClear: HTMLSpanElement;
 
-	private value_: Value<string>;
+	private value_: Value<PluginImageInputData>;
 	private params_: PluginImageInputParams;
 
 	constructor(doc: Document, config: Config) {
@@ -84,11 +84,22 @@ export class PluginView implements View {
 		config.viewProps.handleDispose(() => {
 			this.removeEventListeners_();
 		});
+
+		// Init styles
+		if (this.checkbox.checked) {
+			this.inputImage.disabled = false;
+			this.element.style.opacity = '1';
+		} else {
+			this.inputImage.disabled = true;
+			this.element.style.opacity = '0.5';
+		}
 	}
 
 	private refresh_(): void {
-		// Show Image in monitor
-		this.image.setAttribute('src', this.value_.rawValue);
+		this.image.setAttribute('src', this.value_.rawValue.src);
+
+		if (this.value_.rawValue.checked !== this.checkbox.checked)
+			this.checkbox.click();
 	}
 
 	private createRootElement_(doc: Document): HTMLDivElement {
@@ -190,7 +201,7 @@ export class PluginView implements View {
 		);
 
 		checkbox.type = 'checkbox';
-		checkbox.defaultChecked = true;
+		checkbox.defaultChecked = this.value_.rawValue.checked;
 		checkbox.className = `${className('input-checkbox')} ${
 			this.params_.config?.templateCheckBox === 'tweakpane'
 				? className('input-checkbox-tweakpane')
