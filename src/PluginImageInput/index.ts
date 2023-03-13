@@ -43,7 +43,7 @@ export interface PluginImageInputParams extends BaseInputParams {
 //
 export const PluginImageInput: InputBindingPlugin<
 	PluginImageInputData,
-	PluginImageInputData | string,
+	PluginImageInputData,
 	PluginImageInputParams
 > = {
 	id: 'image-input',
@@ -79,18 +79,6 @@ export const PluginImageInput: InputBindingPlugin<
 			return null;
 		}
 
-		if (typeof exValue === 'string')
-			return {
-				initialValue: {
-					src: exValue,
-					checked:
-						typeof params.checkBoxProps?.defaultChecked === 'boolean'
-							? params.checkBoxProps?.defaultChecked
-							: true,
-				},
-				params: {...result, ...params},
-			};
-
 		if (typeof exValue !== 'object' || !exValue) return null;
 
 		// Return a typed value and params to accept the user input
@@ -107,12 +95,6 @@ export const PluginImageInput: InputBindingPlugin<
 					typeof _args.params.checkBoxProps?.defaultChecked === 'boolean'
 						? _args.params.checkBoxProps?.defaultChecked
 						: true;
-
-				if (typeof exValue === 'string')
-					return {
-						src: exValue,
-						checked,
-					};
 
 				if (typeof exValue === 'object' && exValue) {
 					const exVal = exValue as PluginImageInputData;

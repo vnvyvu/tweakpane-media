@@ -37,6 +37,18 @@ pane.registerPlugin({plugins: [PluginVideoInput, PluginImageInput]});
 	});
 </script>
 
+// <= 0.0.x
+const PARAMS = {
+	image: './image.png',
+	video: './video.mp4',
+};
+
+// >= 0.1.x
+const PARAMS = {
+	image: {src: './image.png', checked: true},
+	video: {src: './video.mp4', checked: true},
+};
+
 pane
 	.addInput(PARAMS, 'image', {
 		label: 'Image',
