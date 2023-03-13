@@ -84,6 +84,15 @@ export class PluginView implements View {
 		config.viewProps.handleDispose(() => {
 			this.removeEventListeners_();
 		});
+
+		// Init styles
+		if (this.checkbox.checked) {
+			this.inputImage.disabled = false;
+			this.element.style.opacity = '1';
+		} else {
+			this.checkbox.disabled = true;
+			this.element.style.opacity = '0.5';
+		}
 	}
 
 	private refresh_(): void {
