@@ -1,6 +1,6 @@
 {
 	"name": "tweakpane-media",
-	"version": "0.1.1",
+	"version": "0.1.2",
 	"description": "Add image/video to Tweakpane",
 	"main": "dist/tweakpane-media.min.js",
 	"types": "dist/types/index.d.ts",

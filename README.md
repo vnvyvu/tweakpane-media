@@ -171,7 +171,7 @@ const configUI = {
 
 ### 0.0.x -> 0.1.x
 
-- I added `checked` (checkbox's state) to change event object, so `ev.value` is not a string anymore, it's object `{src: string, checked: boolean}`
+- I added `checked` (checkbox's state) to `ev.value`, so `ev.value` is not a string anymore, it's object `{src: string, checked: boolean}`
 
 ## Limitation
 
