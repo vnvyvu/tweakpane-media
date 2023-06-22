@@ -121,7 +121,6 @@ export class PluginView implements View {
 			this.params_.inputVideoProps,
 		);
 
-		input.id = 'video';
 		input.type = 'file';
 		input.className = `${className('input-video')} ${
 			this.params_.inputVideoProps?.className || ''
@@ -136,7 +135,6 @@ export class PluginView implements View {
 			this.params_.labelVideoProps,
 		);
 
-		label.htmlFor = 'video';
 		label.className = `${className('label-video')} ${
 			this.params_.labelVideoProps?.className || ''
 		}`;

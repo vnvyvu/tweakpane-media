@@ -121,7 +121,6 @@ export class PluginView implements View {
 			this.params_.inputImageProps,
 		);
 
-		input.id = 'image';
 		input.type = 'file';
 		input.className = `${className('input-image')} ${
 			this.params_.inputImageProps?.className || ''
@@ -136,7 +135,6 @@ export class PluginView implements View {
 			this.params_.labelImageProps,
 		);
 
-		label.htmlFor = 'image';
 		label.className = `${className('label-image')} ${
 			this.params_.labelImageProps?.className || ''
 		}`;
