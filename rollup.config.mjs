@@ -5,7 +5,7 @@ import Terser from '@rollup/plugin-terser';
 import Typescript from '@rollup/plugin-typescript';
 import Autoprefixer from 'autoprefixer';
 import Postcss from 'postcss';
-import {obfuscator} from 'rollup-obfuscator';
+// import {obfuscator} from 'rollup-obfuscator';
 import Cleanup from 'rollup-plugin-cleanup';
 import Sass from 'sass';
 
@@ -51,12 +51,12 @@ function getPlugins(css, shouldMinify) {
 		Cleanup({
 			comments: 'none',
 		}),
-		obfuscator({
-			ignoreImports: true,
-			target: 'node',
-			identifierNamesGenerator: 'mangled',
-			deadCodeInjection: false,
-		}),
+		// obfuscator({
+		// 	ignoreImports: true,
+		// 	target: 'node',
+		// 	identifierNamesGenerator: 'mangled',
+		// 	deadCodeInjection: false,
+		// }),
 	];
 }
 
