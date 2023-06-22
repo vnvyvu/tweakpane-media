@@ -1,6 +1,6 @@
 # tweakpane-media
 
-Add image, video for Tweakpane
+Add image, video for Tweakpane. Based on [**leochocolat/tweakpane-plugin-media**](https://github.com/leochocolat/tweakpane-plugin-media)
 
 ## Features
 
@@ -15,10 +15,10 @@ Add image, video for Tweakpane
 
 ```typescript
 import {
-	PluginVideoInputParams,
-	PluginVideoInput,
-	PluginImageInputParams,
-	PluginImageInput,
+    PluginVideoInputParams,
+    PluginVideoInput,
+    PluginImageInputParams,
+    PluginImageInput,
 } from 'tweakpane-media';
 
 const pane = new Pane();
@@ -28,13 +28,13 @@ pane.registerPlugin({plugins: [PluginVideoInput, PluginImageInput]});
 <script src="../path/to/tweakpane.js"></script>
 <script src="../path/to/tweakpane-media.min.js"></script>
 <script>
-	const pane = new Tweakpane.Pane();
-	pane.registerPlugin({
-		plugins: [
-			TweakpaneMediaPlugin.PluginImageInput,
-			TweakpaneMediaPlugin.PluginVideoInput,
-		],
-	});
+    const pane = new Tweakpane.Pane();
+    pane.registerPlugin({
+        plugins: [
+            TweakpaneMediaPlugin.PluginImageInput,
+            TweakpaneMediaPlugin.PluginVideoInput,
+        ],
+    });
 </script>
 
 // <= 0.0.x
@@ -50,65 +50,64 @@ const PARAMS = {
 };
 
 pane
-	.addInput(PARAMS, 'image', {
-		label: 'Image',
-		view: 'image',
+    .addInput(PARAMS, 'image', {
+        label: 'Image',
+        view: 'image',
 
-		containerProps: {},
+        containerProps: {},
 
-		imgProps: {
-			style: {
-				width: '100px',
-			},
-		},
-		inputImageProps: {},
-		labelImageProps: {},
+        imgProps: {
+            style: {
+                width: '100px',
+            },
+        },
+        inputImageProps: {},
+        labelImageProps: {},
 
-		containerCheckBoxProps: {},
-		checkBoxProps: {},
-		labelCheckBoxProps: {},
+        containerCheckBoxProps: {},
+        checkBoxProps: {},
+        labelCheckBoxProps: {},
 
-		buttonClearProps: {
-			children: 'Clear',
-		}
-	} as PluginImageInputParams)
-	.on('change', (ev) => {
-		console.log(ev.value);
-	});
+        buttonClearProps: {
+            children: 'Clear',
+        }
+    } as PluginImageInputParams)
+    .on('change', (ev) => {
+        console.log(ev.value);
+    });
 
 pane
-	.addInput(PARAMS, 'video', {
-		label: 'Video',
-		view: 'video',
+    .addInput(PARAMS, 'video', {
+        label: 'Video',
+        view: 'video',
 
-		containerProps: {},
+        containerProps: {},
 
-		videoProps: {
-			loop: true,
-			autoplay: true,
-			muted: true,
-			playsinline: true,
-			width: 100,
-			height: 90,
-			style: {
-				objectFit: 'cover',
-			},
-		}
-		inputVideoProps: {},
-		labelVideoProps: {},
+        videoProps: {
+            loop: true,
+            autoplay: true,
+            muted: true,
+            playsinline: true,
+            width: 100,
+            height: 90,
+            style: {
+                objectFit: 'cover',
+            },
+        }
+        inputVideoProps: {},
+        labelVideoProps: {},
 
-		containerCheckBoxProps: {},
-		checkBoxProps: {},
-		labelCheckBoxProps: {},
+        containerCheckBoxProps: {},
+        checkBoxProps: {},
+        labelCheckBoxProps: {},
 
-		buttonClearProps: {
-			children: 'Clear',
-		}
-	} as PluginVideoInputParams)
-	.on('change', (ev) => {
-		console.log(ev.value);
-	});
-
+        buttonClearProps: {
+            children: 'Clear',
+        }
+    } as PluginVideoInputParams)
+    .on('change', (ev) => {
+        console.log(ev.value);
+    });
 ```
 
 - Custom checkbox similar Tweakpane core checkbox
@@ -152,7 +151,10 @@ import {renderToStaticMarkup} from 'react-dom/server';
 const configUI = {
 	buttonClearProps: {
 		innerHTML: renderToStaticMarkup(
-			TiDeleteOutline({size: 19, className: 'hover:text-slate-400 text-black'}),
+			TiDeleteOutline({
+				size: 19,
+				className: 'hover:text-slate-400 text-black',
+			}),
 		),
 	},
 	containerProps: {
@@ -179,4 +181,4 @@ I don't know
 
 ## Other
 
-[Buy me a ☕](https://paypal.me/99vyvu 'paypal')
+[Buy me a ☕](https://paypal.me/99vyvu)
